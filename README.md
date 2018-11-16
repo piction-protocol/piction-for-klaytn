@@ -2,6 +2,8 @@
 
 > This project is a prototype for testing Klaytn.
 
+ - [Demo](http://klaytn.piction.network)
+
 ## Requirement
 - [truffle](https://github.com/trufflesuite/truffle) (global dependency)
 - [node-js](https://nodejs.org) (global dependency)
