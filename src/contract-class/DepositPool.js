@@ -4,7 +4,7 @@ import Web3Utils from '@utils/Web3Utils'
 
 class DepositPool {
   constructor(address, from, gas) {
-    this._contract = new web3.eth.Contract(abi, address);
+    this._contract = new caver.klay.Contract(abi, address);
     this._contract.options.from = from;
     this._contract.options.gas = gas;
   }
@@ -12,7 +12,7 @@ class DepositPool {
   // 예치금 조회
   async getDeposit(address) {
     let result = await this._contract.methods.getDeposit(address).call();
-    return web3.utils.fromWei(result);
+    return caver.utils.fromWei(result);
   }
 
   // 예치금 반환 가능 일 조회

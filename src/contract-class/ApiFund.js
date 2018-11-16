@@ -8,7 +8,7 @@ import BigNumber from 'bignumber.js'
 
 class ApiFund {
   constructor(address, from, gas) {
-    this._contract = new web3.eth.Contract(abi, address);
+    this._contract = new caver.klay.Contract(abi, address);
     this._contract.options.from = from;
     this._contract.options.gas = gas;
   }
@@ -51,7 +51,7 @@ class ApiFund {
     result = Web3Utils.prettyJSON(result);
     let fund = new Fund(result);
     fund.address = address;
-    fund.rise = Number(web3.utils.fromWei(result.fundRise));
+    fund.rise = Number(caver.utils.fromWei(result.fundRise));
     fund.comic = await vue.$contract.apiContents.getComic(result.content);
     return fund;
   }

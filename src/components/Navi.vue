@@ -63,7 +63,7 @@
       updatePXL() {
         this.pxlChange = false;
         this.$contract.pxl.balanceOf(this.pictionConfig.account).then(pxl => {
-          this.pxl = web3.utils.fromWei(new this.web3.utils.BN(pxl));
+          this.pxl = caver.utils.fromWei(new this.caver.utils.BN(pxl));
           this.pxlChange = true;
         });
       },

@@ -4,7 +4,7 @@ import councilSource from '../build/contracts/Council.json'
 export default async (network) => {
   const returnConfig = {};
   const councilAddress = councilSource.networks[network].address;
-  const council = new web3.eth.Contract(councilSource.abi, councilAddress);
+  const council = new caver.klay.Contract(councilSource.abi, councilAddress);
   const pictionConfig = await council.methods.getPictionConfig().call();
 
   returnConfig.account = store.getters.publicKey.toLowerCase();

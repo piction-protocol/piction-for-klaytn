@@ -3,7 +3,7 @@ import Web3Utils from '@utils/Web3Utils'
 
 class AccountManager {
   constructor(address, from, gas) {
-    this._contract = new web3.eth.Contract(abi, address);
+    this._contract = new caver.klay.Contract(abi, address);
     this._contract.options.from = from;
     this._contract.options.gas = gas;
   }
@@ -20,8 +20,12 @@ class AccountManager {
       return Web3Utils.bytesToArray(result.writerName_, result.spos_, result.epos_);
   }
 
-  isRegistered(userName) {
-    return this._contract.methods.isRegistered(userName).call();
+  isRegisteredUserName(userName) {
+    return this._contract.methods.isRegisteredUserName(userName).call();
+  }
+
+  isRegisteredPrivateKey(privateKey) {
+    return this._contract.methods.isRegisteredPrivateKey(privateKey).call();
   }
 
   login(userName, password) {

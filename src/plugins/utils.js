@@ -45,7 +45,7 @@ const Utils = {
         spos.forEach((o, i) => {
           let str = bytes.substring(spos[i], epos[i]);
           if (str.indexOf("0x") == -1) str = "0x" + str;
-          arr.push(web3.utils.hexToUtf8(str));
+          arr.push(caver.utils.hexToUtf8(str));
         });
         return arr;
       },

@@ -14,7 +14,7 @@ const PictionNetworkPlugin = {
   install(Vue, pictionConfig) {
 
 
-    Vue.prototype.web3 = window.web3;
+    Vue.prototype.caver = window.caver;
 
     console.log(pictionConfig);
     Vue.prototype.pictionConfig = pictionConfig;

@@ -1,11 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Web3 from 'web3'
-
-// local: ws://127.0.0.1:9545 / private: ws://54.249.219.254:8546
-var provider = new Web3.providers.WebsocketProvider('ws://54.249.219.254:8546')
-window.web3 = new Web3(provider);
-
+import Caver from 'caver-js'
+window.caver = new Caver('ws://52.78.136.229:8552')
 import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App'
@@ -61,13 +57,13 @@ Vue.mixin({
 
 (async () => {
   if (store.getters.isLoggedIn) {
-    await web3.eth.accounts.wallet.add(store.getters.token);
+    await caver.klay.accounts.wallet.add(store.getters.token);
   } else {
     console.log('not logged in')
   }
   Vue.use(Utils);
   // local: 4447 / private: 2880
-  Vue.use(PictionNetworkPlugin, await config(2880));
+  Vue.use(PictionNetworkPlugin, await config(1000));
   Vue.use(FirebasePlugin, {
     apiKey: "AIzaSyAmq4aDivflyokSUzdDCPmmKBu_3LFTmkU",
     authDomain: "battlecomics-dev.firebaseapp.com",

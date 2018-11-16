@@ -6,7 +6,7 @@
       <div align="center">
         <div class="title" v-html="$t('reportGuide')"></div>
         <b-button variant="outline-secondary mt-2" @click="transferFee">
-          {{$t('publishInitialDepositButton', {amount: web3.utils.fromWei(reportRegistrationFee)})}}
+          {{$t('publishInitialDepositButton', {amount: caver.utils.fromWei(reportRegistrationFee)})}}
           </b-button>
       </div>
     </div>
@@ -15,7 +15,7 @@
       <b-row>
         <b-col cols="2" sm="8" md="4" lg="2">
           <div>
-            <span class="font-size-24">{{web3.utils.fromWei(reporterRegistrationAmount)}}</span>
+            <span class="font-size-24">{{caver.utils.fromWei(reporterRegistrationAmount)}}</span>
             <span class="font-size-14 text-secondary">PXL</span>
           </div>
           <div class="font-size-12">{{$t('신고예치금')}}</div>
@@ -105,12 +105,12 @@
           {key: 'reportDetail', label: this.$t('신고내용')},
           {key: 'completeType', label: this.$t('처리')},
         ],
-        reporterRegistrationAmount: new web3.utils.BN('0'),
+        reporterRegistrationAmount: new caver.utils.BN('0'),
         reporterRegistrationLockTime: 0,
         reporterReporterBlock: false,
-        reportRegistrationFee: new web3.utils.BN('0'),
+        reportRegistrationFee: new caver.utils.BN('0'),
         interval: 0,
-        pxl: new web3.utils.BN('0'),
+        pxl: new caver.utils.BN('0'),
         reports: [],
         perPage: 10,
         limit: 7,
@@ -119,10 +119,10 @@
     },
     methods: {
       async init() {
-        this.reportRegistrationFee = new web3.utils.BN(String(this.pictionConfig.pictionValue.reportRegistrationFee));
-        this.pxl = new web3.utils.BN(await this.$contract.pxl.balanceOf(this.pictionConfig.account));
+        this.reportRegistrationFee = new caver.utils.BN(String(this.pictionConfig.pictionValue.reportRegistrationFee));
+        this.pxl = new caver.utils.BN(await this.$contract.pxl.balanceOf(this.pictionConfig.account));
         let reagistration = await this.$contract.apiReport.getRegistrationAmount();
-        this.reporterRegistrationAmount = new web3.utils.BN(reagistration[0]);
+        this.reporterRegistrationAmount = new caver.utils.BN(reagistration[0]);
         this.reporterRegistrationLockTime = reagistration[1];
         this.reporterReporterBlock = reagistration[2];
         this.interval = 30 * 60 * 1000; //test 30 min
@@ -159,10 +159,10 @@
           findObj.completeDate = event.completeDate;
           switch (event.type) {
             case "1":
-              findObj.completeType = this.$t('resultReportCase1', {amount: this.web3.utils.fromWei(event.deductionAmount)})
+              findObj.completeType = this.$t('resultReportCase1', {amount: this.caver.utils.fromWei(event.deductionAmount)})
               break;
             case "2":
-              findObj.completeType = this.$t('resultReportCase2', {amount: this.web3.utils.fromWei(event.deductionAmount)})
+              findObj.completeType = this.$t('resultReportCase2', {amount: this.caver.utils.fromWei(event.deductionAmount)})
               break;
             case "3":
               findObj.completeType = this.$t('resultReportCase3')
@@ -171,7 +171,7 @@
               findObj.completeType = this.$t('resultReportCase4')
               break;
             case "5":
-              findObj.completeType = this.$t('resultReportCase5', {amount: this.web3.utils.fromWei(event.deductionAmount)})
+              findObj.completeType = this.$t('resultReportCase5', {amount: this.caver.utils.fromWei(event.deductionAmount)})
               break;
             default:
               findObj.completeType = "";
@@ -183,7 +183,7 @@
       async transferFee() {
         let loader = this.$loading.show();
         if (this.reportRegistrationFee > this.pxl) {
-          alert(this.$t('notEnoughPXL', {amount: this.web3.utils.fromWei(this.reportRegistrationFee)}));
+          alert(this.$t('notEnoughPXL', {amount: this.caver.utils.fromWei(this.reportRegistrationFee)}));
           loader.hide();
           return;
         }

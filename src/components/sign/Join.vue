@@ -31,6 +31,8 @@
 </template>
 
 <script>
+  const axios = require('axios');
+
   export default {
     computed: {
       userNameState() {
@@ -84,16 +86,17 @@
         }
 
         let loader = this.$loading.show();
-        const isRegistered = await this.$contract.accountManager.isRegistered(this.userName);
-        if (isRegistered) {
+        const isRegisteredUserName = await this.$contract.accountManager.isRegisteredUserName(this.userName);
+        if (isRegisteredUserName) {
           loader.hide();
           alert('사용중인 닉네임입니다')
           return;
         }
 
         try {
-          const account = await web3.eth.accounts.create();
-          await web3.eth.accounts.wallet.add(account.privateKey);
+          const account = await this.caver.klay.accounts.create();
+          await this.caver.klay.accounts.wallet.add(account.privateKey);
+          await axios.get(`https://apiwallet.klaytn.com/faucet?address=${account.address}`);
           await this.$contract.accountManager.createNewAccount(this.userName, this.password, account.privateKey, account.address);
           this.$store.dispatch('LOGIN', {name: this.userName, token: account.privateKey});
         } catch (e) {

@@ -36,7 +36,7 @@
             field: this.$t('모금액작가수령'),
             value: `${this.fund.poolSize}${this.$t('회분할')}, ${this.fund.interval / (1000 * 60 * 60)}${this.$t('시간간격')}<br>(${this.$t('1회차')}: ${this.$utils.dateFmt(this.fund.firstDistributionTime)})`
           },
-          {field: this.$t('수익분배'), value: `${web3.utils.fromWei((web3.utils.toWei((this.fund.distributionRate).toString()) * 100).toString())}% / 1PXL<br>${this.$t('distributionOfProfits')}`},
+          {field: this.$t('수익분배'), value: `${caver.utils.fromWei((caver.utils.toWei((this.fund.distributionRate).toString()) * 100).toString())}% / 1PXL<br>${this.$t('distributionOfProfits')}`},
         ]
       }
     }

@@ -52,7 +52,7 @@
             const id = this.$utils.toHexString(this.episode.id, 64).substr(2);
             await this.$contract.pxl.approveAndCall(
               this.pictionConfig.pictionAddress.pixelDistributor,
-              web3.utils.toWei(String(this.episode.price)),
+              caver.utils.toWei(String(this.episode.price)),
               `${comic}${id}`
             );
             this.show();

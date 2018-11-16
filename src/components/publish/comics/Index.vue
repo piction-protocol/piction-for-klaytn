@@ -11,7 +11,7 @@
     <div align="center">
       <div v-if="myDeposit == 0">
         <div class="title" v-html="$t('publishInitialDepositText')"></div>
-        <b-button variant="outline-secondary mt-2" @click="deposit">{{$t('publishInitialDepositButton', {amount: web3.utils.fromWei(initialDeposit)})}}</b-button>
+        <b-button variant="outline-secondary mt-2" @click="deposit">{{$t('publishInitialDepositButton', {amount: caver.utils.fromWei(initialDeposit)})}}</b-button>
       </div>
       <div v-else>
         <div v-if="comics.length == 0" class="title">{{$t('publishEmptyContentsText')}}</div>
@@ -29,16 +29,16 @@
     data() {
       return {
         comics: [],
-        myDeposit: new web3.utils.BN('0'),
-        initialDeposit: new web3.utils.BN('0'),
-        pxl: new web3.utils.BN('0')
+        myDeposit: new caver.utils.BN('0'),
+        initialDeposit: new caver.utils.BN('0'),
+        pxl: new caver.utils.BN('0')
       }
     },
     methods: {
       async setDeposit() {
-        this.myDeposit = new web3.utils.BN(await this.$contract.apiContents.getInitialDeposit(this.pictionConfig.account));
-        this.initialDeposit = new web3.utils.BN(String(this.pictionConfig.pictionValue.initialDeposit));
-        this.pxl = new web3.utils.BN(await this.$contract.pxl.balanceOf(this.pictionConfig.account));
+        this.myDeposit = new caver.utils.BN(await this.$contract.apiContents.getInitialDeposit(this.pictionConfig.account));
+        this.initialDeposit = new caver.utils.BN(String(this.pictionConfig.pictionValue.initialDeposit));
+        this.pxl = new caver.utils.BN(await this.$contract.pxl.balanceOf(this.pictionConfig.account));
       },
       newComic() {
         this.$router.push({name: 'publish-new-comic'});
@@ -46,7 +46,7 @@
       async deposit() {
         let loader = this.$loading.show();
         if (this.initialDeposit > this.pxl) {
-          alert(this.$t('checkInitialDeposit', {amount: this.web3.utils.fromWei(this.initialDeposit)}));
+          alert(this.$t('checkInitialDeposit', {amount: this.caver.utils.fromWei(this.initialDeposit)}));
           loader.hide();
           return;
         }

@@ -205,7 +205,7 @@
       getResult(typeNumber, amount) {
         var result = '';
 
-        var toPXL = this.web3.utils.fromWei(new this.web3.utils.BN(amount));
+        var toPXL = this.caver.utils.fromWei(new this.caver.utils.BN(amount));
         if (typeNumber == 1 || typeNumber == 2 || typeNumber == 5) {
           result = this.options[typeNumber].text + ' (- ' + toPXL + ' PXL)';
         } else {

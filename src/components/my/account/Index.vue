@@ -139,7 +139,7 @@
         this.list = this.list.reverse();
       },
       toPXL(amount) {
-            return this.web3.utils.fromWei(new this.web3.utils.BN(amount));
+            return this.caver.utils.fromWei(new this.caver.utils.BN(amount));
       }
     },
     async created() {

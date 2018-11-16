@@ -86,7 +86,7 @@
           return;
         }
         try {
-          await web3.eth.accounts.wallet.add(loginInfo.key_);
+          await caver.klay.accounts.wallet.add(loginInfo.key_);
           this.$store.dispatch('LOGIN', {name: this.userName, token: loginInfo.key_});
         } catch (e) {
           alert(e);

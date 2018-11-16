@@ -7,7 +7,7 @@ import Web3Utils from '@utils/Web3Utils'
 
 class ApiContents {
   constructor(address, from, gas) {
-    this._contract = new web3.eth.Contract(abi, address);
+    this._contract = new caver.klay.Contract(abi, address);
     this._contract.options.from = from;
     this._contract.options.gas = gas;
   }
@@ -26,13 +26,13 @@ class ApiContents {
       return [];
     } else {
       let comics = [];
-      let records = JSON.parse(web3.utils.hexToUtf8(result.records));
+      let records = JSON.parse(caver.utils.hexToUtf8(result.records));
       let writerNames = await vue.$contract.accountManager.getUserNames(result.writer);
       records.forEach((record, i) => {
         let comic = new Comic(record);
         comic.address = result.comicAddress[i].toLowerCase();
         comic.purchasedCount = Number(result.totalPurchasedCount[i]);
-        comic.totalPurchasedAmount = new web3.utils.BN(result.totalPurchasedAmount[i]);
+        comic.totalPurchasedAmount = new caver.utils.BN(result.totalPurchasedAmount[i]);
         comic.lastUploadedAt = Number(result.episodeLastUpdatedTime[i]);
         comic.createdAt = Number(result.contentCreationTime[i]);
         comic.writer = new Writer(result.writer[i], writerNames[i]);
@@ -60,13 +60,13 @@ class ApiContents {
       return [];
     } else {
       let comics = [];
-      let records = JSON.parse(web3.utils.hexToUtf8(result.records));
+      let records = JSON.parse(caver.utils.hexToUtf8(result.records));
       records.forEach((record, i) => {
         let comic = new Comic(record);
         comic.address = result.comicAddress[i].toLowerCase();
         comic.privateEpisodesCount = Number(result.privateEpisode[i]);
         comic.publishedEpisodesCount = Number(result.publishedEpisode[i]);
-        comic.totalPurchasedAmount = new web3.utils.BN(result.totalPurchasedAmount[i]);
+        comic.totalPurchasedAmount = new caver.utils.BN(result.totalPurchasedAmount[i]);
         comic.isBlock = result.isBlockComic[i]
         comic.writer = new Writer(vue.$store.getters.publicKey, vue.$store.getters.name);
         comics.push(comic);
@@ -83,12 +83,12 @@ class ApiContents {
       return [];
     } else {
       let episodes = [];
-      let records = JSON.parse(web3.utils.hexToUtf8(result.records));
+      let records = JSON.parse(caver.utils.hexToUtf8(result.records));
       records.forEach((record, i) => {
         let episode = new Episode(record);
         episode.id = Number(result.episodeIndex[i]);
         episode.number = i + 1;
-        episode.price = Number(web3.utils.fromWei(result.price[i]));
+        episode.price = Number(caver.utils.fromWei(result.price[i]));
         episode.isPurchased = result.isPurchased[i];
         episode.createdAt = Number(result.episodeCreationTime[i]);
         episodes.push(episode);
@@ -105,15 +105,15 @@ class ApiContents {
       return [];
     } else {
       let episodes = [];
-      let records = JSON.parse(web3.utils.hexToUtf8(result.records));
+      let records = JSON.parse(caver.utils.hexToUtf8(result.records));
       records.forEach((record, i) => {
         let episode = new Episode(record);
         episode.id = Number(result.episodeIndex[i]);
         episode.number = i + 1;
-        episode.price = Number(web3.utils.fromWei(result.price[i]));
+        episode.price = Number(caver.utils.fromWei(result.price[i]));
         episode.publishedAt = Number(result.publishDate[i]);
         episode.status = result.isPublished[i];
-        episode.purchasedAmount = Number(web3.utils.fromWei(result.purchasedAmount[i]));
+        episode.purchasedAmount = Number(caver.utils.fromWei(result.purchasedAmount[i]));
         episodes.push(episode);
       });
       return episodes;
@@ -127,7 +127,7 @@ class ApiContents {
     result = Web3Utils.prettyJSON(result);
     let episode = new Episode(JSON.parse(result.records));
     episode.id = id;
-    episode.price = web3.utils.fromWei(result.price);
+    episode.price = caver.utils.fromWei(result.price);
     episode.isPurchased = result.isPurchased;
     episode.cuts = JSON.parse(cuts);
     episode.publishedAt = Number(result.publishDate);
@@ -151,7 +151,7 @@ class ApiContents {
       address,
       JSON.stringify({title: episode.title, thumbnail: episode.thumbnail}),
       JSON.stringify(episode.cuts),
-      web3.utils.toWei(String(episode.price)),
+      caver.utils.toWei(String(episode.price)),
       episode.status,
       new Date(episode.publishedAt).getTime()
     ).send();
@@ -164,7 +164,7 @@ class ApiContents {
       episode.id,
       JSON.stringify({title: episode.title, thumbnail: episode.thumbnail}),
       JSON.stringify(episode.cuts),
-      web3.utils.toWei(String(episode.price)),
+      caver.utils.toWei(String(episode.price)),
       episode.status,
       new Date(episode.publishedAt).getTime()
     ).send();
@@ -173,7 +173,7 @@ class ApiContents {
   // 예치금 조회
   async getInitialDeposit(address) {
     let result = await this._contract.methods.getInitialDeposit(address).call();
-    return Number(web3.utils.fromWei(result));
+    return Number(caver.utils.fromWei(result));
   }
 
   async getComicSales(address) {
@@ -181,7 +181,7 @@ class ApiContents {
     result = Web3Utils.prettyJSON(result);
     let sales = new Sales();
     sales.favoriteCount = Number(result.favoriteCount);
-    sales.totalPurchasedAmount = Number(web3.utils.fromWei(result.totalPurchasedAmount));
+    sales.totalPurchasedAmount = Number(caver.utils.fromWei(result.totalPurchasedAmount));
     sales.totalPurchasedCount = Number(result.totalPurchasedCount);
     sales.totalPurchasedUserCount = Number(result.totalPurchasedUserCount);
     return sales;

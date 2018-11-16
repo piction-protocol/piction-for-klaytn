@@ -10,10 +10,10 @@ export default new Vuex.Store({
     locale: localStorage.getItem('locale') || 'ko',
   },
   getters: {
-    isLoggedIn: state => state.name != null && state.token != null,
+    isLoggedIn: state => state.token != null,
     name: state => state.name,
     token: state => state.token,
-    publicKey: state => state.token ? web3.eth.accounts.privateKeyToAccount(state.token).address : '0x0000000000000000000000000000000000000000',
+    publicKey: state => state.token ? caver.klay.accounts.privateKeyToAccount(state.token).address : '0x0000000000000000000000000000000000000000',
     locale: state => state.locale,
   },
   mutations: {

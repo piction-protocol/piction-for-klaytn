@@ -44,11 +44,11 @@
         try {
           this.restoreData();
           let registrationInfo = await this.$contract.apiReport.getRegistrationAmount();
-          let deposit = new this.web3.utils.BN(registrationInfo.amount_);
+          let deposit = new this.caver.utils.BN(registrationInfo.amount_);
           let lockTime = registrationInfo.lockTime_;
-          let initialDeposit = new this.web3.utils.BN(this.pictionConfig.pictionValue.reportRegistrationFee.toString());
-          let pxl = new this.web3.utils.BN(await this.$contract.pxl.balanceOf(this.pictionConfig.account));
-          let message = this.$t('initialReportDepositHint', {pxl: this.web3.utils.fromWei(initialDeposit)});
+          let initialDeposit = new this.caver.utils.BN(this.pictionConfig.pictionValue.reportRegistrationFee.toString());
+          let pxl = new this.caver.utils.BN(await this.$contract.pxl.balanceOf(this.pictionConfig.account));
+          let message = this.$t('initialReportDepositHint', {pxl: this.caver.utils.fromWei(initialDeposit)});
           let resetMessage = this.$t('confirmResetReportDeposit');
           if (deposit > 0) {
             if (lockTime <= this.$root.now) {
