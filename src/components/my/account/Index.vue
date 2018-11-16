@@ -43,7 +43,7 @@
         </div>
         <div class="col-12 col-sm-6 col-md-8">
           <div class="p-1" style="font-size: 20px; font-weight: bold;">{{$t('PXL내역')}}
-            <b-link :href="`https://private.piction.network/address/${pictionConfig.account}`" target="_blank">
+            <b-link :href="`https://scope.klaytn.com/transactions?account=${pictionConfig.account}`" target="_blank">
               <span class="font-size-14 text-secondary">({{$t('PIXELExplorer에서보기')}})</span>
             </b-link>
           </div>
