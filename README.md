@@ -1,30 +1,57 @@
-# piction-poc
+# Piction for Klaytn
 
-> A Vue.js project
+> This project is a prototype for testing Klaytn.
 
-## Build Setup
+## Requirement
+- [truffle](https://github.com/trufflesuite/truffle) (global dependency)
+- [node-js](https://nodejs.org) (global dependency)
+- [zeppelin-solidity](https://github.com/OpenZeppelin/openzeppelin-solidity)
+- [truffle-hdwallet-provider-privkey](https://github.com/rhlsthrm/truffle-hdwallet-provider-privkey)
+- [dotenv-flow](https://github.com/kerimdzhanov/dotenv-flow)
+- [caver.js](https://docs.klaytn.com/getting_started/quick_start.html#installing-caverjs)
 
-``` bash
-# install dependencies
-npm install
+## Setting
 
-# serve with hot reload at localhost:8080
-npm run dev
+`truffle-hdwallet-provider-privkey` uses wallet's private key to authenticate accounts in ethereum network.
+Register developer's wallet address and private key in `.env.klaytn` like this.
 
-# build for production with minification
-npm run build
+```javascript
+$ cp .env .env.klaytn
 
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
+--- .env.klaytn ---
+PRIVATE_KEY=<PRIVATE_KEY>
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Install 
+
+```
+$ npm install -g truffle
+$ npm install // install node_modules in package.json
+```
+
+## Compile
+
+```
+$ truffle compile
+```
+
+## Deploy
+- Deploy
+```
+$ truffle migrate --network klaytn
+```
+- Set Contract
+```
+$ node set_contract_script.js
+```
+
+## Run dApp
+
+```
+$ npm run dev
+
+```
+
+## License
+
+This is available under the MIT license. See the LICENSE file for more info.
